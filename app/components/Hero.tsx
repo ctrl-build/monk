@@ -76,10 +76,7 @@ export default function Hero() {
           <div className="col-span-12 lg:col-span-7 lg:col-start-1">
             <h1
               className="text-left text-[8vw] leading-[1.1] text-[#3e2723] md:text-[6vw] lg:text-[5vw]"
-              style={{ 
-                fontFamily: '"Schnyder", serif',
-                fontDisplay: "optional",
-              }}
+              style={{ fontFamily: '"Schnyder", serif' }}
             >
               {words.map((word, index) => {
                 const isRevealed = index < revealedWordCount;
