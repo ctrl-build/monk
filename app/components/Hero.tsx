@@ -43,15 +43,51 @@ export default function Hero() {
   }, [isMobile]);
 
   useEffect(() => {
-    if (isMobile) return;
-    
-    if (isLoaded) {
-      // Show text immediately when loaded
-      setRevealedWordCount(words.length);
-      setPeriodColor("#f0660a");
-      setRevealedLineCount(lines.length);
-      setShowScrollLine(true);
-    }
+    if (isMobile || !isLoaded) return;
+
+    // Start animations immediately when loaded
+    let frameId: number;
+    let startTime: number | null = null;
+    let wordIndex = 0;
+    let lineIndex = 0;
+    let periodChanged = false;
+    let scrollLineShown = false;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+
+      if (wordIndex < words.length && elapsed >= wordIndex * 150) {
+        setRevealedWordCount(wordIndex + 1);
+        wordIndex++;
+      }
+
+      if (wordIndex === words.length && !periodChanged && elapsed >= (words.length - 1) * 150 + 400) {
+        setPeriodColor("#f0660a");
+        periodChanged = true;
+      }
+
+      if (periodChanged && lineIndex < lines.length && elapsed >= (words.length - 1) * 150 + 600 + lineIndex * 200 + 200) {
+        setRevealedLineCount(lineIndex + 1);
+        lineIndex++;
+      }
+
+      if (lineIndex === lines.length && !scrollLineShown && elapsed >= (words.length - 1) * 150 + 600 + lines.length * 200 + 500) {
+        setShowScrollLine(true);
+        scrollLineShown = true;
+        return;
+      }
+
+      if (!scrollLineShown) {
+        frameId = requestAnimationFrame(animate);
+      }
+    };
+
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      if (frameId) cancelAnimationFrame(frameId);
+    };
   }, [isLoaded, isMobile]);
 
   const handleLoaderComplete = () => {
@@ -79,8 +115,9 @@ export default function Hero() {
                     key={index}
                     className="inline-block"
                     style={{
-                      opacity: 1,
-                      transform: "translateY(0)",
+                      opacity: isMobile ? 1 : (isRevealed ? 1 : 0),
+                      transform: isMobile ? "translateY(0)" : (isRevealed ? "translateY(0)" : "translateY(20px)"),
+                      transition: isMobile ? "none" : "opacity 400ms ease-out, transform 400ms ease-out",
                       marginRight: index < words.length - 1 ? "0.25em" : "0",
                     }}
                   >
@@ -113,8 +150,9 @@ export default function Hero() {
                     key={index}
                     className="block"
                     style={{
-                      opacity: 1,
-                      transform: "translateY(0)",
+                      opacity: isMobile ? 1 : (isRevealed ? 1 : 0),
+                      transform: isMobile ? "translateY(0)" : (isRevealed ? "translateY(0)" : "translateY(20px)"),
+                      transition: isMobile ? "none" : "opacity 400ms ease-out, transform 400ms ease-out",
                     }}
                   >
                     {line}
