@@ -20,7 +20,15 @@ export default function Hero() {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (mobile) {
+        setIsLoaded(true);
+        setRevealedWordCount(words.length);
+        setPeriodColor("#f0660a");
+        setRevealedLineCount(lines.length);
+        setShowScrollLine(true);
+      }
     };
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -28,16 +36,7 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    if (isMobile) {
-      setIsLoaded(true);
-      setRevealedWordCount(words.length);
-      setPeriodColor("#f0660a");
-      setRevealedLineCount(lines.length);
-      setShowScrollLine(true);
-      return;
-    }
-
-    if (!isLoaded) return;
+    if (isMobile || !isLoaded) return;
 
     const startAnimations = () => {
       let frameId: number;
