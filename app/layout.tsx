@@ -24,6 +24,28 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://monk.haus",
   },
+  openGraph: {
+    title: "Monk – A Studio for Intentional Web Design & Development.",
+    description: "Monk is a web design and development studio. We build with intention, clarity, and an uncompromising commitment to the craft. Our process is the product.",
+    url: "https://monk.haus",
+    siteName: "Monk",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 1200,
+        alt: "Monk logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Monk – A Studio for Intentional Web Design & Development.",
+    description: "Monk is a web design and development studio. We build with intention, clarity, and an uncompromising commitment to the craft. Our process is the product.",
+    images: ["/logo.png"],
+  },
 };
 
 export default function RootLayout({
