@@ -84,7 +84,7 @@ export default function FeaturedWork() {
   }, []);
 
   useEffect(() => {
-    if (!hoveredProject || !isDesktop || !cursorRef.current) {
+    if (!isDesktop || !cursorRef.current) {
       document.body.style.cursor = "auto";
       if (cursorRef.current) {
         cursorRef.current.style.display = "none";
@@ -93,15 +93,20 @@ export default function FeaturedWork() {
     }
 
     const cursorEl = cursorRef.current;
-    cursorEl.style.display = "block";
 
     const handleMouseMove = (e: MouseEvent) => {
       cursorEl.style.left = `${e.clientX}px`;
       cursorEl.style.top = `${e.clientY}px`;
     };
 
-    document.addEventListener("mousemove", handleMouseMove, { passive: true });
-    document.body.style.cursor = "none";
+    if (hoveredProject) {
+      cursorEl.style.display = "block";
+      document.addEventListener("mousemove", handleMouseMove, { passive: true });
+      document.body.style.cursor = "none";
+    } else {
+      cursorEl.style.display = "none";
+      document.body.style.cursor = "auto";
+    }
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
@@ -140,8 +145,14 @@ export default function FeaturedWork() {
                     ? `${project.colStart} / span ${project.colSpan}`
                     : undefined,
                 }}
-                onMouseEnter={() => setHoveredProject(project.id)}
-                onMouseLeave={() => setHoveredProject(null)}
+                onMouseEnter={() => {
+                  if (hoveredProject !== project.id) {
+                    setHoveredProject(project.id);
+                  }
+                }}
+                onMouseLeave={() => {
+                  setHoveredProject(null);
+                }}
               >
                 <Link href={project.href} className="block w-full h-full">
                   <div className={`relative w-full aspect-[4/3] overflow-hidden ${
@@ -184,11 +195,11 @@ export default function FeaturedWork() {
                       )}
                       {isDesktop && (
                         <div
-                          className="absolute inset-0 pointer-events-none will-change-opacity"
+                          className="absolute inset-0 pointer-events-none"
                           style={{
                             backgroundColor: "rgba(0, 0, 0, 0.15)",
                             opacity: isHovered ? 1 : 0,
-                            transition: "opacity 200ms ease-out",
+                            transition: isHovered ? "opacity 150ms ease-out" : "opacity 100ms ease-out",
                           }}
                         />
                       )}
