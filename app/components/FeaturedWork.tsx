@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import Link from "next/link";
 
 interface Project {
@@ -48,13 +48,27 @@ export default function FeaturedWork() {
   useEffect(() => {
     const checkBreakpoint = () => {
       const width = window.innerWidth;
-      setIsDesktop(width >= 1024);
-      setIsTablet(width >= 768 && width < 1024);
-      setIsMobile(width < 768);
+      const desktop = width >= 1024;
+      const tablet = width >= 768 && width < 1024;
+      const mobile = width < 768;
+      
+      setIsDesktop(desktop);
+      setIsTablet(tablet);
+      setIsMobile(mobile);
     };
     checkBreakpoint();
-    window.addEventListener("resize", checkBreakpoint);
-    return () => window.removeEventListener("resize", checkBreakpoint);
+    
+    let timeoutId: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkBreakpoint, 150);
+    };
+    
+    window.addEventListener("resize", handleResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   useEffect(() => {
@@ -191,6 +205,7 @@ export default function FeaturedWork() {
                     <div className="absolute inset-0">
                       {project.video ? (
                         <video
+                          key={`video-${project.id}`}
                           src={project.video}
                           autoPlay
                           loop
@@ -199,9 +214,11 @@ export default function FeaturedWork() {
                           className="w-full h-full object-cover"
                           width={1200}
                           height={900}
+                          preload="auto"
                         />
                       ) : (
                         <img
+                          key={`img-${project.id}`}
                           src={project.image}
                           alt={`Art-directed photograph showcasing the ${project.title} project, a study in ${project.tags.join(" and ")}.`}
                           className="w-full h-full object-cover"
@@ -210,6 +227,13 @@ export default function FeaturedWork() {
                           loading="eager"
                           fetchPriority="high"
                           decoding="async"
+                          onLoad={(e) => {
+                            // Prevent multiple loads
+                            const img = e.currentTarget;
+                            if (img.complete && img.naturalHeight !== 0) {
+                              img.style.opacity = '1';
+                            }
+                          }}
                         />
                       )}
                       {isDesktop && (
