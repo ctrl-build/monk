@@ -58,9 +58,37 @@ export default function FeaturedWork() {
   }, []);
 
   useEffect(() => {
-    // Show all projects immediately - no delays
-    setRevealedProjects(new Set(projects.map(p => p.id)));
-  }, []);
+    if (isMobile) {
+      setRevealedProjects(new Set(projects.map(p => p.id)));
+      return;
+    }
+
+    // Staggered reveal: 150ms between each project
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const projectId = entry.target.getAttribute("data-project-id");
+            if (projectId && !revealedProjects.has(projectId)) {
+              const projectIndex = projects.findIndex((p) => p.id === projectId);
+              const delay = projectIndex * 150;
+              setTimeout(() => {
+                setRevealedProjects((prev) => new Set(prev).add(projectId));
+              }, delay);
+            }
+          }
+        });
+      },
+      { threshold: 0.01, rootMargin: "200px 0px" }
+    );
+
+    const projectElements = sectionRef.current?.querySelectorAll("[data-project-id]");
+    projectElements?.forEach((el) => observer.observe(el));
+
+    return () => {
+      projectElements?.forEach((el) => observer.unobserve(el));
+    };
+  }, [isMobile, revealedProjects]);
 
   useEffect(() => {
     if (!isDesktop || !cursorRef.current) {
@@ -156,9 +184,10 @@ export default function FeaturedWork() {
                   }}>
                     {!isMobile && (
                       <div
-                        className="absolute inset-0 bg-[#fdfcfb] z-10 transition-transform duration-500 ease-out"
+                        className="absolute inset-0 bg-[#fdfcfb] z-10"
                         style={{
                           transform: isRevealed ? "translateX(-100%)" : "translateX(0)",
+                          transition: "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)",
                         }}
                       />
                     )}
@@ -173,6 +202,10 @@ export default function FeaturedWork() {
                           className="w-full h-full object-cover"
                           width={1200}
                           height={900}
+                          style={{
+                            filter: isDesktop && isHovered ? "brightness(0.9) saturate(0.9)" : "none",
+                            transition: "filter 150ms ease-out",
+                          }}
                         />
                       ) : (
                         <picture>
@@ -186,6 +219,10 @@ export default function FeaturedWork() {
                             loading="eager"
                             fetchPriority="high"
                             decoding="async"
+                            style={{
+                              filter: isDesktop && isHovered ? "brightness(0.9) saturate(0.9)" : "none",
+                              transition: "filter 150ms ease-out",
+                            }}
                           />
                         </picture>
                       )}
@@ -193,9 +230,9 @@ export default function FeaturedWork() {
                         <div
                           className="absolute inset-0 pointer-events-none"
                           style={{
-                            backgroundColor: "rgba(0, 0, 0, 0.15)",
+                            backgroundColor: "rgba(0, 0, 0, 0.1)",
                             opacity: isHovered ? 1 : 0,
-                            transition: isHovered ? "opacity 150ms ease-out" : "opacity 100ms ease-out",
+                            transition: "opacity 150ms ease-out",
                           }}
                         />
                       )}
