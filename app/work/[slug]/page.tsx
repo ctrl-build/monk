@@ -208,7 +208,6 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                     muted
                     playsInline
                     className="absolute inset-0 w-full h-full object-cover"
-                    fetchPriority="high"
                     width={1920}
                     height={1080}
                   >
@@ -261,7 +260,6 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                   muted
                   playsInline
                   className="absolute inset-0 w-full h-full object-cover"
-                  fetchPriority="high"
                   width={1920}
                   height={1080}
                 >
