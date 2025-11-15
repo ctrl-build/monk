@@ -69,11 +69,14 @@ export default function FeaturedWork() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const projectId = entry.target.getAttribute("data-project-id");
-            if (projectId && !revealedProjects.has(projectId)) {
+            if (projectId) {
               const projectIndex = projects.findIndex((p) => p.id === projectId);
               const delay = projectIndex * 150;
               setTimeout(() => {
-                setRevealedProjects((prev) => new Set(prev).add(projectId));
+                setRevealedProjects((prev) => {
+                  if (prev.has(projectId)) return prev;
+                  return new Set(prev).add(projectId);
+                });
               }, delay);
             }
           }
@@ -88,7 +91,7 @@ export default function FeaturedWork() {
     return () => {
       projectElements?.forEach((el) => observer.unobserve(el));
     };
-  }, [isMobile, revealedProjects]);
+  }, [isMobile]);
 
   useEffect(() => {
     if (!isDesktop || !cursorRef.current) {
