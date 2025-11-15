@@ -14,15 +14,15 @@ export default function Footer() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setTimeout(() => {
+            requestAnimationFrame(() => {
               setIsInvitationVisible(true);
-            }, 0);
-            setTimeout(() => {
-              setIsLineVisible(true);
-            }, 300);
-            setTimeout(() => {
-              setIsBaselineVisible(true);
-            }, 500);
+              setTimeout(() => {
+                setIsLineVisible(true);
+              }, 300);
+              setTimeout(() => {
+                setIsBaselineVisible(true);
+              }, 500);
+            });
           }
         });
       },

@@ -44,17 +44,30 @@ export default function Work() {
   useEffect(() => {
     if (isLoaded) {
       const word = "work";
-      word.split("").forEach((letter, index) => {
-        setTimeout(() => {
-          setSpineLetters((prev) => [...prev, letter]);
-        }, index * 100 + 200);
-      });
+      let letterIndex = 0;
+      let projectIndex = 0;
+      let startTime: number | null = null;
 
-      projects.forEach((project, index) => {
-        setTimeout(() => {
-          setRevealedRows((prev) => new Set(prev).add(project.id));
-        }, index * 200 + 600);
-      });
+      const animate = (currentTime: number) => {
+        if (!startTime) startTime = currentTime;
+        const elapsed = currentTime - startTime;
+
+        if (letterIndex < word.length && elapsed >= letterIndex * 100 + 200) {
+          setSpineLetters((prev) => [...prev, word[letterIndex]]);
+          letterIndex++;
+        }
+
+        if (projectIndex < projects.length && elapsed >= projectIndex * 200 + 600) {
+          setRevealedRows((prev) => new Set(prev).add(projects[projectIndex].id));
+          projectIndex++;
+        }
+
+        if (letterIndex < word.length || projectIndex < projects.length) {
+          requestAnimationFrame(animate);
+        }
+      };
+
+      requestAnimationFrame(animate);
     }
   }, [isLoaded]);
 
