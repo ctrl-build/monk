@@ -81,17 +81,26 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <script
-          defer
-          src="https://www.googletagmanager.com/gtag/js?id=G-LLP85TEFBS"
-        />
-        <script
-          defer
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
               gtag('config', 'G-LLP85TEFBS');
+              
+              (function() {
+                var script = document.createElement('script');
+                script.async = true;
+                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-LLP85TEFBS';
+                script.onload = function() {
+                  if (window.requestIdleCallback) {
+                    requestIdleCallback(function() {
+                      gtag('config', 'G-LLP85TEFBS');
+                    });
+                  }
+                };
+                document.head.appendChild(script);
+              })();
             `,
           }}
         />
