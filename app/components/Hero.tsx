@@ -97,9 +97,9 @@ export default function Hero() {
                     key={index}
                     className="inline-block"
                     style={{
-                      opacity: isRevealed ? 1 : 0,
-                      transform: isRevealed ? "translateY(0)" : "translateY(20px)",
-                      transition: "opacity 400ms ease-out, transform 400ms ease-out",
+                      opacity: isRevealed || !isLoaded ? 1 : 0,
+                      transform: isRevealed || !isLoaded ? "translateY(0)" : "translateY(20px)",
+                      transition: isLoaded ? "opacity 400ms ease-out, transform 400ms ease-out" : "none",
                       marginRight: index < words.length - 1 ? "0.25em" : "0",
                     }}
                   >
