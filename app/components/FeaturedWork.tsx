@@ -211,8 +211,7 @@ export default function FeaturedWork() {
                         style={{
                           opacity: isHovered ? 1 : 0,
                           transform: isHovered ? "translateY(0)" : "translateY(20px)",
-                          transition: "opacity 200ms ease-out, transform 200ms ease-out",
-                          willChange: isHovered ? "opacity, transform" : "auto",
+                          transition: isHovered ? "opacity 150ms ease-out, transform 150ms ease-out" : "opacity 100ms ease-out, transform 100ms ease-out",
                         }}
                       >
                         <h3
@@ -226,7 +225,7 @@ export default function FeaturedWork() {
                         <div
                           className="flex gap-4"
                           style={{
-                            transition: "opacity 200ms ease-out 100ms, transform 200ms ease-out 100ms",
+                            transition: isHovered ? "opacity 150ms ease-out 50ms, transform 150ms ease-out 50ms" : "opacity 100ms ease-out, transform 100ms ease-out",
                           }}
                         >
                           {project.tags.map((tag, index) => (
