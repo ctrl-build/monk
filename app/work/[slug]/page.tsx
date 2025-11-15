@@ -106,6 +106,13 @@ useEffect(() => {
   },
 };
 
+export async function generateStaticParams() {
+  return [
+    { slug: 'gaplens' },
+    { slug: 'ipower' },
+  ];
+}
+
 export default function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
   const [isLoaded, setIsLoaded] = useState(false);

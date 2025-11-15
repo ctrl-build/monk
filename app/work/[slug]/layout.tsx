@@ -11,6 +11,13 @@ const projectData: Record<string, { title: string; tags: string[] }> = {
   },
 };
 
+export async function generateStaticParams() {
+  return [
+    { slug: 'gaplens' },
+    { slug: 'ipower' },
+  ];
+}
+
 export async function generateMetadata({
   params,
 }: {
