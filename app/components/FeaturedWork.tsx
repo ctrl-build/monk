@@ -39,11 +39,11 @@ const projects: Project[] = [
 export default function FeaturedWork() {
   const [revealedProjects, setRevealedProjects] = useState<Set<string>>(new Set());
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [isDesktop, setIsDesktop] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkBreakpoint = () => {
@@ -84,19 +84,20 @@ export default function FeaturedWork() {
   }, []);
 
   useEffect(() => {
-    if (!hoveredProject || !isDesktop) {
+    if (!hoveredProject || !isDesktop || !cursorRef.current) {
       document.body.style.cursor = "auto";
+      if (cursorRef.current) {
+        cursorRef.current.style.display = "none";
+      }
       return;
     }
 
-    let rafId: number | null = null;
+    const cursorEl = cursorRef.current;
+    cursorEl.style.display = "block";
+
     const handleMouseMove = (e: MouseEvent) => {
-      if (rafId === null) {
-        rafId = requestAnimationFrame(() => {
-          setCursorPosition({ x: e.clientX, y: e.clientY });
-          rafId = null;
-        });
-      }
+      cursorEl.style.left = `${e.clientX}px`;
+      cursorEl.style.top = `${e.clientY}px`;
     };
 
     document.addEventListener("mousemove", handleMouseMove, { passive: true });
@@ -105,8 +106,8 @@ export default function FeaturedWork() {
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.body.style.cursor = "auto";
-      if (rafId !== null) {
-        cancelAnimationFrame(rafId);
+      if (cursorEl) {
+        cursorEl.style.display = "none";
       }
     };
   }, [hoveredProject, isDesktop]);
@@ -257,25 +258,25 @@ export default function FeaturedWork() {
         </div>
       </section>
 
-      {hoveredProject && isDesktop && (
-        <div
-          className="fixed pointer-events-none z-[9999] will-change-transform"
-          style={{
-            left: `${cursorPosition.x}px`,
-            top: `${cursorPosition.y}px`,
-            transform: "translate(-50%, -50%)",
-          }}
+      <div
+        ref={cursorRef}
+        className="fixed pointer-events-none z-[9999] will-change-[left,top]"
+        style={{
+          display: "none",
+          transform: "translate(-50%, -50%)",
+          left: "0px",
+          top: "0px",
+        }}
+      >
+        <span
+          className="text-[16px] lowercase whitespace-nowrap"
+          style={{ fontFamily: '"IBM Plex Mono", monospace' }}
         >
-          <span
-            className="text-[16px] lowercase whitespace-nowrap"
-            style={{ fontFamily: '"IBM Plex Mono", monospace' }}
-          >
-            <span style={{ color: "#f0660a" }}>[</span>
-            <span style={{ color: "#3e2723" }}> view project </span>
-            <span style={{ color: "#f0660a" }}>]</span>
-          </span>
-        </div>
-      )}
+          <span style={{ color: "#f0660a" }}>[</span>
+          <span style={{ color: "#3e2723" }}> view project </span>
+          <span style={{ color: "#f0660a" }}>]</span>
+        </span>
+      </div>
     </>
   );
 }
