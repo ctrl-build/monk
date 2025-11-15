@@ -77,6 +77,8 @@ export default function FeaturedWork() {
       return;
     }
 
+    if (!sectionRef.current) return;
+
     // Staggered reveal: 150ms between each project
     const observer = new IntersectionObserver(
       (entries) => {
@@ -92,6 +94,8 @@ export default function FeaturedWork() {
                   return new Set(prev).add(projectId);
                 });
               }, delay);
+              // Unobserve after revealing to prevent multiple triggers
+              observer.unobserve(entry.target);
             }
           }
         });
@@ -99,11 +103,11 @@ export default function FeaturedWork() {
       { threshold: 0.01, rootMargin: "200px 0px" }
     );
 
-    const projectElements = sectionRef.current?.querySelectorAll("[data-project-id]");
-    projectElements?.forEach((el) => observer.observe(el));
+    const projectElements = sectionRef.current.querySelectorAll("[data-project-id]");
+    projectElements.forEach((el) => observer.observe(el));
 
     return () => {
-      projectElements?.forEach((el) => observer.unobserve(el));
+      observer.disconnect();
     };
   }, [isMobile]);
 
