@@ -182,25 +182,13 @@ export default function FeaturedWork() {
                         </picture>
                       )}
                       {isDesktop && (
-                        <>
-                          <div
-                            className="absolute inset-0 transition-opacity duration-300"
-                            style={{
-                              backgroundColor: "rgba(0, 0, 0, 0.1)",
-                              opacity: isHovered ? 1 : 0,
-                              pointerEvents: "none",
-                            }}
-                          />
-                          <div
-                            className="absolute inset-0 transition-opacity duration-300"
-                            style={{
-                              backgroundColor: "rgba(255, 255, 255, 0.1)",
-                              opacity: isHovered ? 1 : 0,
-                              mixBlendMode: "saturation",
-                              pointerEvents: "none",
-                            }}
-                          />
-                        </>
+                        <div
+                          className="absolute inset-0 transition-opacity duration-300 pointer-events-none"
+                          style={{
+                            backgroundColor: "rgba(0, 0, 0, 0.15)",
+                            opacity: isHovered ? 1 : 0,
+                          }}
+                        />
                       )}
                     </div>
 
