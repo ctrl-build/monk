@@ -58,7 +58,10 @@ export default function Work() {
         }
 
         if (projectIndex < projects.length && elapsed >= projectIndex * 200 + 600) {
-          setRevealedRows((prev) => new Set(prev).add(projects[projectIndex].id));
+          const project = projects[projectIndex];
+          if (project && project.id) {
+            setRevealedRows((prev) => new Set(prev).add(project.id));
+          }
           projectIndex++;
         }
 
