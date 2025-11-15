@@ -83,23 +83,41 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-LLP85TEFBS');
-              
               (function() {
-                var script = document.createElement('script');
-                script.async = true;
-                script.src = 'https://www.googletagmanager.com/gtag/js?id=G-LLP85TEFBS';
-                script.onload = function() {
+                function loadGA() {
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', 'G-LLP85TEFBS');
+                  
+                  var script = document.createElement('script');
+                  script.async = true;
+                  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-LLP85TEFBS';
+                  script.onload = function() {
+                    if (window.requestIdleCallback) {
+                      requestIdleCallback(function() {
+                        gtag('config', 'G-LLP85TEFBS');
+                      }, { timeout: 3000 });
+                    }
+                  };
+                  document.head.appendChild(script);
+                }
+                
+                if (document.readyState === 'complete') {
                   if (window.requestIdleCallback) {
-                    requestIdleCallback(function() {
-                      gtag('config', 'G-LLP85TEFBS');
-                    });
+                    requestIdleCallback(loadGA, { timeout: 5000 });
+                  } else {
+                    setTimeout(loadGA, 2000);
                   }
-                };
-                document.head.appendChild(script);
+                } else {
+                  window.addEventListener('load', function() {
+                    if (window.requestIdleCallback) {
+                      requestIdleCallback(loadGA, { timeout: 5000 });
+                    } else {
+                      setTimeout(loadGA, 2000);
+                    }
+                  });
+                }
               })();
             `,
           }}

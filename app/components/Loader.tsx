@@ -10,6 +10,12 @@ export default function Loader({ onComplete }: LoaderProps) {
   const [phase, setPhase] = useState<"line" | "wipe" | "complete">("line");
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      onComplete();
+      return;
+    }
+
     const lineTimer = setTimeout(() => {
       setPhase("wipe");
     }, 600);

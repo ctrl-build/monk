@@ -64,17 +64,27 @@ export default function FeaturedWork() {
           if (entry.isIntersecting) {
             const projectId = entry.target.getAttribute("data-project-id");
             if (projectId) {
-              const delay = projects.findIndex((p) => p.id === projectId) * 100;
-              requestAnimationFrame(() => {
-                setTimeout(() => {
-                  setRevealedProjects((prev) => new Set(prev).add(projectId));
-                }, delay);
-              });
+              const delay = isMobile ? 0 : projects.findIndex((p) => p.id === projectId) * 100;
+              const reveal = () => {
+                setRevealedProjects((prev) => new Set(prev).add(projectId));
+              };
+              
+              if (isMobile) {
+                if (window.requestIdleCallback) {
+                  requestIdleCallback(reveal, { timeout: 1000 });
+                } else {
+                  reveal();
+                }
+              } else {
+                requestAnimationFrame(() => {
+                  setTimeout(reveal, delay);
+                });
+              }
             }
           }
         });
       },
-      { threshold: 0.01, rootMargin: "600px 0px" }
+      { threshold: 0.01, rootMargin: isMobile ? "200px 0px" : "600px 0px" }
     );
 
     const projectElements = sectionRef.current?.querySelectorAll("[data-project-id]");
@@ -83,7 +93,7 @@ export default function FeaturedWork() {
     return () => {
       projectElements?.forEach((el) => observer.unobserve(el));
     };
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     if (!isDesktop || !cursorRef.current) {

@@ -9,6 +9,7 @@ export default function Hero() {
   const [periodColor, setPeriodColor] = useState("#3e2723");
   const [revealedLineCount, setRevealedLineCount] = useState(0);
   const [showScrollLine, setShowScrollLine] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   const headline = "We build with intention.";
   const words = headline.split(" ");
@@ -18,51 +19,77 @@ export default function Hero() {
   );
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      setIsLoaded(true);
+      setRevealedWordCount(words.length);
+      setPeriodColor("#f0660a");
+      setRevealedLineCount(lines.length);
+      setShowScrollLine(true);
+      return;
+    }
+
     if (!isLoaded) return;
 
-    let frameId: number;
-    let startTime: number | null = null;
-    let wordIndex = 0;
-    let lineIndex = 0;
-    let periodChanged = false;
-    let scrollLineShown = false;
+    const startAnimations = () => {
+      let frameId: number;
+      let startTime: number | null = null;
+      let wordIndex = 0;
+      let lineIndex = 0;
+      let periodChanged = false;
+      let scrollLineShown = false;
 
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const elapsed = currentTime - startTime;
+      const animate = (currentTime: number) => {
+        if (!startTime) startTime = currentTime;
+        const elapsed = currentTime - startTime;
 
-      if (wordIndex < words.length && elapsed >= wordIndex * 150) {
-        setRevealedWordCount(wordIndex + 1);
-        wordIndex++;
-      }
+        if (wordIndex < words.length && elapsed >= wordIndex * 150) {
+          setRevealedWordCount(wordIndex + 1);
+          wordIndex++;
+        }
 
-      if (wordIndex === words.length && !periodChanged && elapsed >= (words.length - 1) * 150 + 400) {
-        setPeriodColor("#f0660a");
-        periodChanged = true;
-      }
+        if (wordIndex === words.length && !periodChanged && elapsed >= (words.length - 1) * 150 + 400) {
+          setPeriodColor("#f0660a");
+          periodChanged = true;
+        }
 
-      if (periodChanged && lineIndex < lines.length && elapsed >= (words.length - 1) * 150 + 600 + lineIndex * 200 + 200) {
-        setRevealedLineCount(lineIndex + 1);
-        lineIndex++;
-      }
+        if (periodChanged && lineIndex < lines.length && elapsed >= (words.length - 1) * 150 + 600 + lineIndex * 200 + 200) {
+          setRevealedLineCount(lineIndex + 1);
+          lineIndex++;
+        }
 
-      if (lineIndex === lines.length && !scrollLineShown && elapsed >= (words.length - 1) * 150 + 600 + lines.length * 200 + 500) {
-        setShowScrollLine(true);
-        scrollLineShown = true;
-        return;
-      }
+        if (lineIndex === lines.length && !scrollLineShown && elapsed >= (words.length - 1) * 150 + 600 + lines.length * 200 + 500) {
+          setShowScrollLine(true);
+          scrollLineShown = true;
+          return;
+        }
 
-      if (!scrollLineShown) {
-        frameId = requestAnimationFrame(animate);
-      }
+        if (!scrollLineShown) {
+          frameId = requestAnimationFrame(animate);
+        }
+      };
+
+      frameId = requestAnimationFrame(animate);
+
+      return () => {
+        if (frameId) cancelAnimationFrame(frameId);
+      };
     };
 
-    frameId = requestAnimationFrame(animate);
-
-    return () => {
-      if (frameId) cancelAnimationFrame(frameId);
-    };
-  }, [isLoaded]);
+    if (window.requestIdleCallback) {
+      requestIdleCallback(startAnimations, { timeout: 2000 });
+    } else {
+      setTimeout(startAnimations, 100);
+    }
+  }, [isLoaded, isMobile]);
 
   const handleLoaderComplete = () => {
     setIsLoaded(true);
@@ -70,7 +97,7 @@ export default function Hero() {
 
   return (
     <>
-      {!isLoaded && <Loader onComplete={handleLoaderComplete} />}
+      {!isLoaded && !isMobile && <Loader onComplete={handleLoaderComplete} />}
       <section className="relative h-[calc(100vh-60px)] lg:h-[calc(100vh-80px)] bg-[#fdfcfb] px-4 lg:px-8 xl:px-16 overflow-hidden flex flex-col">
         <div className="grid-12 container mx-auto max-w-[1400px] flex-1 flex flex-col justify-center pt-32 lg:pt-40">
           <div className="col-span-12 lg:col-span-7 lg:col-start-1">
