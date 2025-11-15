@@ -12,14 +12,14 @@ export default function Loader({ onComplete }: LoaderProps) {
   useEffect(() => {
     const lineTimer = setTimeout(() => {
       setPhase("wipe");
-    }, 800);
+    }, 600);
 
     const wipeTimer = setTimeout(() => {
       setPhase("complete");
       setTimeout(() => {
         onComplete();
-      }, 300);
-    }, 1100);
+      }, 200);
+    }, 800);
 
     return () => {
       clearTimeout(lineTimer);

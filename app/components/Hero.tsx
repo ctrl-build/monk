@@ -71,12 +71,20 @@ export default function Hero() {
   return (
     <>
       {!isLoaded && <Loader onComplete={handleLoaderComplete} />}
-      <section className="relative h-[calc(100vh-60px)] lg:h-[calc(100vh-80px)] bg-[#fdfcfb] px-4 lg:px-8 xl:px-16 overflow-hidden flex flex-col">
+      <section 
+        className="relative h-[calc(100vh-60px)] lg:h-[calc(100vh-80px)] bg-[#fdfcfb] px-4 lg:px-8 xl:px-16 overflow-hidden flex flex-col"
+        style={{
+          visibility: isLoaded ? "visible" : "hidden",
+        }}
+      >
         <div className="grid-12 container mx-auto max-w-[1400px] flex-1 flex flex-col justify-center pt-32 lg:pt-40">
           <div className="col-span-12 lg:col-span-7 lg:col-start-1">
             <h1
               className="text-left text-[8vw] leading-[1.1] text-[#3e2723] md:text-[6vw] lg:text-[5vw]"
-              style={{ fontFamily: '"Schnyder", serif' }}
+              style={{ 
+                fontFamily: '"Schnyder", serif',
+                fontDisplay: "optional",
+              }}
             >
               {words.map((word, index) => {
                 const isRevealed = index < revealedWordCount;

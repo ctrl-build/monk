@@ -29,7 +29,7 @@
   src: url("/assets/fonts/Schnyder-L-Demi.otf") format("opentype");
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
