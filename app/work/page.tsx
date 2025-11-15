@@ -186,10 +186,20 @@ export default function Work() {
                 const isRevealed = revealedRows.has(project.id);
                 return (
                   <Link key={project.id} href={project.href} className="block">
-                    <div className="w-full aspect-[4/3] mb-4 overflow-hidden bg-gray-200">
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-gray-400">Project Image</span>
-                      </div>
+                    <div className="w-full aspect-[4/3] mb-4 overflow-hidden bg-gray-200 relative">
+                      <picture>
+                        <source srcSet={project.image} type="image/webp" />
+                        <img
+                          src={project.image.replace('.webp', '.jpg')}
+                          alt={`Art-directed photograph showcasing the ${project.title} project, a study in ${project.tags.join(" and ")}.`}
+                          className="w-full h-full object-cover"
+                          width={1200}
+                          height={900}
+                          loading="eager"
+                          fetchPriority="high"
+                          decoding="async"
+                        />
+                      </picture>
                     </div>
                     <h2
                       className="text-[8vw] leading-[1.1] text-[#3e2723] mb-2"
