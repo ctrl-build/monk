@@ -64,14 +64,15 @@ export default function FeaturedWork() {
           if (entry.isIntersecting) {
             const projectId = entry.target.getAttribute("data-project-id");
             if (projectId) {
+              const delay = projects.findIndex((p) => p.id === projectId) * 100;
               setTimeout(() => {
                 setRevealedProjects((prev) => new Set(prev).add(projectId));
-              }, projects.findIndex((p) => p.id === projectId) * 150);
+              }, delay);
             }
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: "200px 0px" }
     );
 
     const projectElements = sectionRef.current?.querySelectorAll("[data-project-id]");
@@ -165,7 +166,8 @@ export default function FeaturedWork() {
                             className="w-full h-full object-cover"
                             width={1200}
                             height={900}
-                            loading="lazy"
+                            loading={index === 0 ? "eager" : "lazy"}
+                            fetchPriority={index === 0 ? "high" : undefined}
                           />
                         </picture>
                       )}
