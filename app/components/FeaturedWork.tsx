@@ -84,20 +84,30 @@ export default function FeaturedWork() {
   }, []);
 
   useEffect(() => {
+    if (!hoveredProject || !isDesktop) {
+      document.body.style.cursor = "auto";
+      return;
+    }
+
+    let rafId: number | null = null;
     const handleMouseMove = (e: MouseEvent) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
+      if (rafId === null) {
+        rafId = requestAnimationFrame(() => {
+          setCursorPosition({ x: e.clientX, y: e.clientY });
+          rafId = null;
+        });
+      }
     };
 
-    if (hoveredProject && isDesktop) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.body.style.cursor = "none";
-    } else {
-      document.body.style.cursor = "auto";
-    }
+    document.addEventListener("mousemove", handleMouseMove, { passive: true });
+    document.body.style.cursor = "none";
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.body.style.cursor = "auto";
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+      }
     };
   }, [hoveredProject, isDesktop]);
 
@@ -172,13 +182,25 @@ export default function FeaturedWork() {
                         </picture>
                       )}
                       {isDesktop && (
-                        <div
-                          className="absolute inset-0 transition-all duration-300"
-                          style={{
-                            backgroundColor: isHovered ? "rgba(0, 0, 0, 0.1)" : "transparent",
-                            filter: isHovered ? "saturate(0.9)" : "none",
-                          }}
-                        />
+                        <>
+                          <div
+                            className="absolute inset-0 transition-opacity duration-300"
+                            style={{
+                              backgroundColor: "rgba(0, 0, 0, 0.1)",
+                              opacity: isHovered ? 1 : 0,
+                              pointerEvents: "none",
+                            }}
+                          />
+                          <div
+                            className="absolute inset-0 transition-opacity duration-300"
+                            style={{
+                              backgroundColor: "rgba(255, 255, 255, 0.1)",
+                              opacity: isHovered ? 1 : 0,
+                              mixBlendMode: "saturation",
+                              pointerEvents: "none",
+                            }}
+                          />
+                        </>
                       )}
                     </div>
 
@@ -249,7 +271,7 @@ export default function FeaturedWork() {
 
       {hoveredProject && isDesktop && (
         <div
-          className="fixed pointer-events-none z-[9999]"
+          className="fixed pointer-events-none z-[9999] will-change-transform"
           style={{
             left: `${cursorPosition.x}px`,
             top: `${cursorPosition.y}px`,
