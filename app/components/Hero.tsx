@@ -19,10 +19,18 @@ export default function Hero() {
   );
 
   useEffect(() => {
+    if (isMobile) {
+      setIsLoaded(true);
+      setRevealedWordCount(words.length);
+      setPeriodColor("#f0660a");
+      setRevealedLineCount(lines.length);
+      setShowScrollLine(true);
+    }
+    
     const checkMobile = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
-      if (mobile) {
+      if (mobile && !isLoaded) {
         setIsLoaded(true);
         setRevealedWordCount(words.length);
         setPeriodColor("#f0660a");
@@ -30,10 +38,9 @@ export default function Hero() {
         setShowScrollLine(true);
       }
     };
-    checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
     if (isMobile || !isLoaded) return;
@@ -115,9 +122,9 @@ export default function Hero() {
                     key={index}
                     className="inline-block"
                     style={{
-                      opacity: isRevealed || !isLoaded ? 1 : 0,
-                      transform: isRevealed || !isLoaded ? "translateY(0)" : "translateY(20px)",
-                      transition: isLoaded ? "opacity 400ms ease-out, transform 400ms ease-out" : "none",
+                      opacity: isRevealed || !isLoaded || isMobile ? 1 : 0,
+                      transform: isRevealed || !isLoaded || isMobile ? "translateY(0)" : "translateY(20px)",
+                      transition: isLoaded && !isMobile ? "opacity 400ms ease-out, transform 400ms ease-out" : "none",
                       marginRight: index < words.length - 1 ? "0.25em" : "0",
                     }}
                   >
@@ -150,9 +157,9 @@ export default function Hero() {
                     key={index}
                     className="block"
                     style={{
-                      opacity: isRevealed ? 1 : 0,
-                      transform: isRevealed ? "translateY(0)" : "translateY(20px)",
-                      transition: "opacity 400ms ease-out, transform 400ms ease-out",
+                      opacity: isRevealed || isMobile ? 1 : 0,
+                      transform: isRevealed || isMobile ? "translateY(0)" : "translateY(20px)",
+                      transition: !isMobile ? "opacity 400ms ease-out, transform 400ms ease-out" : "none",
                     }}
                   >
                     {line}
