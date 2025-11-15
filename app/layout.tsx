@@ -94,8 +94,8 @@ export default function RootLayout({
                   script.async = true;
                   script.src = 'https://www.googletagmanager.com/gtag/js?id=G-LLP85TEFBS';
                   script.onload = function() {
-                    if (window.requestIdleCallback) {
-                      requestIdleCallback(function() {
+                    if (typeof window.requestIdleCallback !== 'undefined') {
+                      window.requestIdleCallback(function() {
                         gtag('config', 'G-LLP85TEFBS');
                       }, { timeout: 3000 });
                     }
@@ -104,15 +104,15 @@ export default function RootLayout({
                 }
                 
                 if (document.readyState === 'complete') {
-                  if (window.requestIdleCallback) {
-                    requestIdleCallback(loadGA, { timeout: 5000 });
+                  if (typeof window.requestIdleCallback !== 'undefined') {
+                    window.requestIdleCallback(loadGA, { timeout: 5000 });
                   } else {
                     setTimeout(loadGA, 2000);
                   }
                 } else {
                   window.addEventListener('load', function() {
-                    if (window.requestIdleCallback) {
-                      requestIdleCallback(loadGA, { timeout: 5000 });
+                    if (typeof window.requestIdleCallback !== 'undefined') {
+                      window.requestIdleCallback(loadGA, { timeout: 5000 });
                     } else {
                       setTimeout(loadGA, 2000);
                     }

@@ -90,8 +90,8 @@ export default function Hero() {
       };
     };
 
-    if (window.requestIdleCallback) {
-      requestIdleCallback(startAnimations, { timeout: 2000 });
+    if (typeof window.requestIdleCallback !== 'undefined') {
+      window.requestIdleCallback(startAnimations, { timeout: 2000 });
     } else {
       setTimeout(startAnimations, 100);
     }
