@@ -58,37 +58,9 @@ export default function FeaturedWork() {
   }, []);
 
   useEffect(() => {
-    if (isMobile) {
-      setRevealedProjects(new Set(projects.map(p => p.id)));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const projectId = entry.target.getAttribute("data-project-id");
-            if (projectId) {
-              const delay = projects.findIndex((p) => p.id === projectId) * 100;
-              requestAnimationFrame(() => {
-                setTimeout(() => {
-                  setRevealedProjects((prev) => new Set(prev).add(projectId));
-                }, delay);
-              });
-            }
-          }
-        });
-      },
-      { threshold: 0.01, rootMargin: "600px 0px" }
-    );
-
-    const projectElements = sectionRef.current?.querySelectorAll("[data-project-id]");
-    projectElements?.forEach((el) => observer.observe(el));
-
-    return () => {
-      projectElements?.forEach((el) => observer.unobserve(el));
-    };
-  }, [isMobile]);
+    // Show all projects immediately - no delays
+    setRevealedProjects(new Set(projects.map(p => p.id)));
+  }, []);
 
   useEffect(() => {
     if (!isDesktop || !cursorRef.current) {
@@ -100,10 +72,21 @@ export default function FeaturedWork() {
     }
 
     const cursorEl = cursorRef.current;
+    let rafId: number | null = null;
+    let mouseX = 0;
+    let mouseY = 0;
+
+    const updateCursor = () => {
+      cursorEl.style.transform = `translate(calc(${mouseX}px - 50%), calc(${mouseY}px - 50%))`;
+      rafId = null;
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
-      cursorEl.style.left = `${e.clientX}px`;
-      cursorEl.style.top = `${e.clientY}px`;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateCursor);
+      }
     };
 
     if (hoveredProject) {
@@ -118,6 +101,9 @@ export default function FeaturedWork() {
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
       document.body.style.cursor = "auto";
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
       if (cursorEl) {
         cursorEl.style.display = "none";
       }
@@ -284,10 +270,9 @@ export default function FeaturedWork() {
 
       <div
         ref={cursorRef}
-        className="fixed pointer-events-none z-[9999] will-change-[left,top]"
+        className="fixed pointer-events-none z-[9999] will-change-transform"
         style={{
           display: "none",
-          transform: "translate(-50%, -50%)",
           left: "0px",
           top: "0px",
         }}
