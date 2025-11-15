@@ -58,20 +58,6 @@ export default function RootLayout({
           type="font/otf"
           crossOrigin="anonymous"
         />
-        <link
-          rel="preload"
-          href="/assets/images/gaplens-full-bleed.webp"
-          as="image"
-          type="image/webp"
-          fetchPriority="high"
-        />
-        <link
-          rel="preload"
-          href="/assets/images/ipower-full-bleed.webp"
-          as="image"
-          type="image/webp"
-          fetchPriority="high"
-        />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />

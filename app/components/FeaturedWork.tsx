@@ -201,19 +201,16 @@ export default function FeaturedWork() {
                           height={900}
                         />
                       ) : (
-                        <picture>
-                          <source srcSet={project.image} type="image/webp" />
-                          <img
-                            src={project.image.replace('.webp', '.jpg')}
-                            alt={`Art-directed photograph showcasing the ${project.title} project, a study in ${project.tags.join(" and ")}.`}
-                            className="w-full h-full object-cover"
-                            width={1200}
-                            height={900}
-                            loading="eager"
-                            fetchPriority="high"
-                            decoding="async"
-                          />
-                        </picture>
+                        <img
+                          src={project.image}
+                          alt={`Art-directed photograph showcasing the ${project.title} project, a study in ${project.tags.join(" and ")}.`}
+                          className="w-full h-full object-cover"
+                          width={1200}
+                          height={900}
+                          loading="eager"
+                          fetchPriority="high"
+                          decoding="async"
+                        />
                       )}
                       {isDesktop && (
                         <div
