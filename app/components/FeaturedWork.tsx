@@ -169,14 +169,8 @@ export default function FeaturedWork() {
                     ? `${project.colStart} / span ${project.colSpan}`
                     : undefined,
                 }}
-                onMouseEnter={() => {
-                  if (hoveredProject !== project.id) {
-                    setHoveredProject(project.id);
-                  }
-                }}
-                onMouseLeave={() => {
-                  setHoveredProject(null);
-                }}
+                onMouseEnter={() => setHoveredProject(project.id)}
+                onMouseLeave={() => setHoveredProject(null)}
               >
                 <Link href={project.href} className="block w-full h-full">
                   <div className={`relative w-full aspect-[4/3] overflow-hidden ${
@@ -187,10 +181,10 @@ export default function FeaturedWork() {
                   }}>
                     {!isMobile && (
                       <div
-                        className="absolute inset-0 bg-[#fdfcfb] z-10"
+                        className="absolute inset-0 bg-[#fdfcfb] z-10 will-change-transform"
                         style={{
-                          transform: isRevealed ? "translateX(-100%)" : "translateX(0)",
-                          transition: "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)",
+                          transform: isRevealed ? "translate3d(-100%, 0, 0)" : "translate3d(0, 0, 0)",
+                          transition: isRevealed ? "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)" : "none",
                         }}
                       />
                     )}
@@ -205,10 +199,6 @@ export default function FeaturedWork() {
                           className="w-full h-full object-cover"
                           width={1200}
                           height={900}
-                          style={{
-                            filter: isDesktop && isHovered ? "brightness(0.9) saturate(0.9)" : "none",
-                            transition: "filter 150ms ease-out",
-                          }}
                         />
                       ) : (
                         <picture>
@@ -222,20 +212,16 @@ export default function FeaturedWork() {
                             loading="eager"
                             fetchPriority="high"
                             decoding="async"
-                            style={{
-                              filter: isDesktop && isHovered ? "brightness(0.9) saturate(0.9)" : "none",
-                              transition: "filter 150ms ease-out",
-                            }}
                           />
                         </picture>
                       )}
                       {isDesktop && (
                         <div
-                          className="absolute inset-0 pointer-events-none"
+                          className="absolute inset-0 pointer-events-none will-change-opacity"
                           style={{
                             backgroundColor: "rgba(0, 0, 0, 0.1)",
                             opacity: isHovered ? 1 : 0,
-                            transition: "opacity 150ms ease-out",
+                            transition: "opacity 100ms ease-out",
                           }}
                         />
                       )}
@@ -243,11 +229,12 @@ export default function FeaturedWork() {
 
                     {isDesktop && (
                       <div 
-                        className="absolute inset-0 z-20 flex flex-col justify-center items-start p-8 pointer-events-none"
+                        className="absolute inset-0 z-20 flex flex-col justify-center items-start p-8 pointer-events-none will-change-[opacity,transform]"
                         style={{
                           opacity: isHovered ? 1 : 0,
-                          transform: isHovered ? "translateY(0)" : "translateY(20px)",
-                          transition: isHovered ? "opacity 150ms ease-out, transform 150ms ease-out" : "opacity 100ms ease-out, transform 100ms ease-out",
+                          transform: isHovered ? "translate3d(0, 0, 0)" : "translate3d(0, 20px, 0)",
+                          transition: "opacity 100ms ease-out, transform 100ms ease-out",
+                          pointerEvents: "none",
                         }}
                       >
                         <h3
@@ -258,12 +245,7 @@ export default function FeaturedWork() {
                         >
                           {project.title}
                         </h3>
-                        <div
-                          className="flex gap-4"
-                          style={{
-                            transition: isHovered ? "opacity 150ms ease-out 50ms, transform 150ms ease-out 50ms" : "opacity 100ms ease-out, transform 100ms ease-out",
-                          }}
-                        >
+                        <div className="flex gap-4">
                           {project.tags.map((tag, index) => (
                             <span
                               key={index}
