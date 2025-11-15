@@ -41,6 +41,7 @@ This will:
    - **Build command:** `npm run build:cloudflare`
    - **Build output directory:** `.vercel/output/static`
    - **Node version:** `20` or higher
+   - **Environment variables:** None required
 
 ### Option 2: Via Wrangler CLI
 
