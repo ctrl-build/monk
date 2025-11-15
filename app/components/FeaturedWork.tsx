@@ -184,24 +184,30 @@ export default function FeaturedWork() {
                       )}
                       {isDesktop && (
                         <div
-                          className="absolute inset-0 transition-opacity duration-300 pointer-events-none"
+                          className="absolute inset-0 pointer-events-none will-change-opacity"
                           style={{
                             backgroundColor: "rgba(0, 0, 0, 0.15)",
                             opacity: isHovered ? 1 : 0,
+                            transition: "opacity 200ms ease-out",
                           }}
                         />
                       )}
                     </div>
 
-                    {(isHovered && isDesktop) && (
-                      <div className="absolute inset-0 z-20 flex flex-col justify-center items-start p-8">
+                    {isDesktop && (
+                      <div 
+                        className="absolute inset-0 z-20 flex flex-col justify-center items-start p-8 pointer-events-none"
+                        style={{
+                          opacity: isHovered ? 1 : 0,
+                          transform: isHovered ? "translateY(0)" : "translateY(20px)",
+                          transition: "opacity 200ms ease-out, transform 200ms ease-out",
+                          willChange: isHovered ? "opacity, transform" : "auto",
+                        }}
+                      >
                         <h3
                           className="text-[4vw] lg:text-[4vw] text-[#3e2723] mb-4"
                           style={{
                             fontFamily: '"Schnyder", serif',
-                            opacity: isHovered ? 1 : 0,
-                            transform: isHovered ? "translateY(0)" : "translateY(20px)",
-                            transition: "opacity 200ms ease-out, transform 200ms ease-out",
                           }}
                         >
                           {project.title}
@@ -209,8 +215,6 @@ export default function FeaturedWork() {
                         <div
                           className="flex gap-4"
                           style={{
-                            opacity: isHovered ? 1 : 0,
-                            transform: isHovered ? "translateY(0)" : "translateY(20px)",
                             transition: "opacity 200ms ease-out 100ms, transform 200ms ease-out 100ms",
                           }}
                         >
