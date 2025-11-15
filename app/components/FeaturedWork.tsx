@@ -65,9 +65,11 @@ export default function FeaturedWork() {
             const projectId = entry.target.getAttribute("data-project-id");
             if (projectId) {
               const delay = projects.findIndex((p) => p.id === projectId) * 100;
-              setTimeout(() => {
-                setRevealedProjects((prev) => new Set(prev).add(projectId));
-              }, delay);
+              requestAnimationFrame(() => {
+                setTimeout(() => {
+                  setRevealedProjects((prev) => new Set(prev).add(projectId));
+                }, delay);
+              });
             }
           }
         });

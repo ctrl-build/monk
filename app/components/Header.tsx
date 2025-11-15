@@ -36,15 +36,17 @@ export default function Header() {
     if (isMenuOpen) {
       setOverlayLinksRevealed(0);
       const timeouts: NodeJS.Timeout[] = [];
-      const revealTimer = setTimeout(() => {
-        navLinks.forEach((_, index) => {
-          const timeout = setTimeout(() => {
-            setOverlayLinksRevealed(index + 1);
-          }, index * 100 + 200);
-          timeouts.push(timeout);
-        });
-      }, 300);
-      timeouts.push(revealTimer);
+      requestAnimationFrame(() => {
+        const revealTimer = setTimeout(() => {
+          navLinks.forEach((_, index) => {
+            const timeout = setTimeout(() => {
+              setOverlayLinksRevealed(index + 1);
+            }, index * 100 + 200);
+            timeouts.push(timeout);
+          });
+        }, 300);
+        timeouts.push(revealTimer);
+      });
       return () => {
         timeouts.forEach((timeout) => clearTimeout(timeout));
       };

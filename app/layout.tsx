@@ -81,10 +81,11 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
         <script
-          async
+          defer
           src="https://www.googletagmanager.com/gtag/js?id=G-LLP85TEFBS"
         />
         <script
+          defer
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];

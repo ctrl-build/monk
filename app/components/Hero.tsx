@@ -20,30 +20,48 @@ export default function Hero() {
   useEffect(() => {
     if (!isLoaded) return;
 
-    words.forEach((_, index) => {
-      setTimeout(() => {
-        setRevealedWordCount(index + 1);
-        
-        if (index === words.length - 1) {
-          setTimeout(() => {
-            setPeriodColor("#f0660a");
-            setTimeout(() => {
-              lines.forEach((_, lineIndex) => {
-                setTimeout(() => {
-                  setRevealedLineCount(lineIndex + 1);
-                  
-                  if (lineIndex === lines.length - 1) {
-                    setTimeout(() => {
-                      setShowScrollLine(true);
-                    }, 300);
-                  }
-                }, lineIndex * 200 + 200);
-              });
-            }, 200);
-          }, 400);
-        }
-      }, index * 150);
-    });
+    let frameId: number;
+    let startTime: number | null = null;
+    let wordIndex = 0;
+    let lineIndex = 0;
+    let periodChanged = false;
+    let scrollLineShown = false;
+
+    const animate = (currentTime: number) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+
+      if (wordIndex < words.length && elapsed >= wordIndex * 150) {
+        setRevealedWordCount(wordIndex + 1);
+        wordIndex++;
+      }
+
+      if (wordIndex === words.length && !periodChanged && elapsed >= (words.length - 1) * 150 + 400) {
+        setPeriodColor("#f0660a");
+        periodChanged = true;
+      }
+
+      if (periodChanged && lineIndex < lines.length && elapsed >= (words.length - 1) * 150 + 600 + lineIndex * 200 + 200) {
+        setRevealedLineCount(lineIndex + 1);
+        lineIndex++;
+      }
+
+      if (lineIndex === lines.length && !scrollLineShown && elapsed >= (words.length - 1) * 150 + 600 + lines.length * 200 + 500) {
+        setShowScrollLine(true);
+        scrollLineShown = true;
+        return;
+      }
+
+      if (!scrollLineShown) {
+        frameId = requestAnimationFrame(animate);
+      }
+    };
+
+    frameId = requestAnimationFrame(animate);
+
+    return () => {
+      if (frameId) cancelAnimationFrame(frameId);
+    };
   }, [isLoaded]);
 
   const handleLoaderComplete = () => {
