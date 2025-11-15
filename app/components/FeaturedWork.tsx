@@ -72,7 +72,7 @@ export default function FeaturedWork() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "200px 0px" }
+      { threshold: 0.01, rootMargin: "600px 0px" }
     );
 
     const projectElements = sectionRef.current?.querySelectorAll("[data-project-id]");
@@ -188,8 +188,9 @@ export default function FeaturedWork() {
                             className="w-full h-full object-cover"
                             width={1200}
                             height={900}
-                            loading={index === 0 ? "eager" : "lazy"}
-                            fetchPriority={index === 0 ? "high" : undefined}
+                            loading="eager"
+                            fetchPriority="high"
+                            decoding="async"
                           />
                         </picture>
                       )}
