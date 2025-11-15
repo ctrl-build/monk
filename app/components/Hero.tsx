@@ -71,12 +71,7 @@ export default function Hero() {
   return (
     <>
       {!isLoaded && <Loader onComplete={handleLoaderComplete} />}
-      <section 
-        className="relative h-[calc(100vh-60px)] lg:h-[calc(100vh-80px)] bg-[#fdfcfb] px-4 lg:px-8 xl:px-16 overflow-hidden flex flex-col"
-        style={{
-          visibility: isLoaded ? "visible" : "hidden",
-        }}
-      >
+      <section className="relative h-[calc(100vh-60px)] lg:h-[calc(100vh-80px)] bg-[#fdfcfb] px-4 lg:px-8 xl:px-16 overflow-hidden flex flex-col">
         <div className="grid-12 container mx-auto max-w-[1400px] flex-1 flex flex-col justify-center pt-32 lg:pt-40">
           <div className="col-span-12 lg:col-span-7 lg:col-start-1">
             <h1
