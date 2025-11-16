@@ -9,12 +9,17 @@ const projectData: Record<string, { title: string; tags: string[] }> = {
     title: "iPower",
     tags: ["design", "development", "strategy"],
   },
+  "ctrl-build": {
+    title: "CTRL+Build",
+    tags: ["design", "development"],
+  },
 };
 
 export async function generateStaticParams() {
   return [
     { slug: 'gaplens' },
     { slug: 'ipower' },
+    { slug: 'ctrl-build' },
   ];
 }
 

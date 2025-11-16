@@ -100,6 +100,33 @@ useEffect(() => {
 }, [isDragging]);`,
     liveUrl: "https://ipower-9xk.pages.dev",
     nextProject: {
+      title: "CTRL+Build",
+      slug: "ctrl-build",
+    },
+  },
+  "ctrl-build": {
+    title: "CTRL+Build",
+    tags: ["design", "development"],
+    fullBleedImage: "/assets/images/ctrl-build-full-bleed.webp",
+    intention: "CTRL+Build is a web design and development studio focused on intentional digital experiences. They needed a digital presence that reflected their commitment to craft, clarity, and purpose—a platform that demonstrated their philosophy through its own execution.",
+    discipline: "We approached this as a meta-exercise in self-reflection. The challenge was creating a site that spoke to our own values while serving as a portfolio of our capabilities. Every design decision was interrogated: Does this serve the work? Does it honor the craft? Does it communicate intention? The result is a site that is both a showcase and a statement—a demonstration of our process as the product.",
+    disciplineQuote: "The process is the product, and every detail matters.",
+    craft: "The technical challenge was building a performant, content-rich experience that could showcase multiple projects while maintaining visual clarity and narrative flow. We implemented a custom reveal system that allows each project to be explored in depth, with careful attention to image loading, animation performance, and responsive behavior across all devices.",
+    liveUrl: "https://ctrl-build.com",
+    codeSnippet: `const [activeProject, setActiveProject] = useState<string | null>(null);
+const [isAnimating, setIsAnimating] = useState(false);
+
+const handleProjectClick = (projectId: string, e: React.MouseEvent) => {
+  if (!isDesktop) return;
+  e.preventDefault();
+  if (isAnimating) return;
+  
+  setIsAnimating(true);
+  setActiveProject(projectId);
+  
+  setTimeout(() => setIsAnimating(false), 600);
+};`,
+    nextProject: {
       title: "GapLens",
       slug: "gaplens",
     },

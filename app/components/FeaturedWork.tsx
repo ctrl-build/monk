@@ -29,6 +29,13 @@ const projects: Project[] = [
     image: "/assets/images/ipower-full-bleed.webp",
     video: "/assets/videos/ipower-hero.mp4",
   },
+  {
+    id: "3",
+    title: "CTRL+Build",
+    tags: ["design", "development"],
+    href: "/work/ctrl-build",
+    image: "/assets/images/ctrl-build-full-bleed.webp",
+  },
 ];
 
 export default function FeaturedWork() {
