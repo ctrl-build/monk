@@ -28,6 +28,13 @@ const projects: Project[] = [
     href: "/work/ipower",
     image: "/assets/images/ipower-full-bleed.webp",
   },
+  {
+    id: "3",
+    title: "CTRL+Build",
+    tags: ["design", "development"],
+    href: "/work/ctrl-build",
+    image: "/assets/images/ctrl-build-full-bleed.webp",
+  },
 ];
 
 export default function Work() {
