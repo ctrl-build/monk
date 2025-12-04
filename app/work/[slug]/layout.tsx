@@ -10,7 +10,7 @@ const projectData: Record<string, { title: string; tags: string[] }> = {
     tags: ["design", "development", "strategy"],
   },
   "ctrl-build": {
-    title: "CTRL+Build",
+    title: "ctrl-build",
     tags: ["design", "development"],
   },
 };

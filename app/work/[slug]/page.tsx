@@ -100,31 +100,50 @@ useEffect(() => {
 }, [isDragging]);`,
     liveUrl: "https://ipower-9xk.pages.dev",
     nextProject: {
-      title: "CTRL+Build",
+      title: "ctrl-build",
       slug: "ctrl-build",
     },
   },
   "ctrl-build": {
-    title: "CTRL+Build",
+    title: "ctrl-build",
     tags: ["design", "development"],
-    fullBleedImage: "/assets/images/ctrl-build-full-bleed.webp",
-    intention: "CTRL+Build is a collective of engineers, architects, and master builders united by a single mission: to bring digital precision and absolute accountability to the built world. In a field defined by variables, they are the control—the constant. They needed a digital presence that embodied this philosophy: precise, accountable, and unwavering in its commitment to excellence.",
-    discipline: "We approached this as an exercise in precision and control. The challenge was creating a site that communicated CTRL+Build's core identity—being the constant in a variable field—while demonstrating the technical mastery and accountability they bring to every project. Every design decision was measured against their mission: Does this reflect precision? Does it demonstrate control? Does it communicate accountability? The result is a digital presence that is both a statement and a standard—a demonstration of what it means to be the constant.",
-    disciplineQuote: "In a field defined by variables, we are the control.",
-    craft: "The technical challenge was building a performant, precise experience that reflected CTRL+Build's commitment to digital precision. We implemented a system that prioritized clarity, accountability, and technical excellence—ensuring every interaction, every animation, and every detail was intentional and controlled. The site serves as both a portfolio and a proof of concept: a demonstration of the precision and accountability CTRL+Build brings to the built world.",
+    fullBleedImage: "/assets/images/ctrl-build.jpg",
+    intention: "ctrl-build is an AI text refinement engine that transforms AI-generated content into natural, human-like writing. Artificial Intelligence gravitates toward the average—it smoothes out edges, flattens rhythm, and removes the friction that makes writing feel human. ctrl-build needed a digital presence that embodied their mission: to restore the cadence of human thought, not through deception, but through reconstruction.",
+    discipline: "We approached this as an exercise in breaking the predictable patterns of probability. The challenge was creating a site that communicated ctrl-build's core philosophy—that the algorithm craves the median, but you shouldn't—while demonstrating the technical sophistication of their semantic restructuring engine. Every design decision was measured against their mission: Does this reflect precision? Does it demonstrate control? Does it communicate the restoration of biological thought patterns? The result is a digital presence that is both a tool and a statement—a demonstration of what it means to reconstruct rather than deceive.",
+    disciplineQuote: "The algorithm craves the median. You shouldn't.",
+    craft: "The technical challenge was building a performant, precise experience that reflected ctrl-build's commitment to restoring human cadence. We implemented a split-screen workspace that mirrored their core functionality—input on one side, reconstructed output on the other—with real-time processing that injects nuance, burstiness, and variance. The site serves as both a functional tool and a proof of concept: a demonstration of semantic restructuring, burstiness injection, and adversarial resilience working in harmony to restore the stutters, sprints, and sudden pauses that define biological thought.",
     liveUrl: "https://ctrl-build.com",
-    codeSnippet: `const [activeProject, setActiveProject] = useState<string | null>(null);
-const [isAnimating, setIsAnimating] = useState(false);
+    codeSnippet: `const handleReconstruct = async () => {
+  if (!inputValue.trim()) return;
 
-const handleProjectClick = (projectId: string, e: React.MouseEvent) => {
-  if (!isDesktop) return;
-  e.preventDefault();
-  if (isAnimating) return;
+  setIsProcessing(true);
+  setOutputText('');
+
+  const response = await fetch('/api/reconstruct', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      text: inputValue,
+      mode: mode,
+    }),
+  });
+
+  const data = await response.json();
+  let processedText = data.text.trim();
   
-  setIsAnimating(true);
-  setActiveProject(projectId);
-  
-  setTimeout(() => setIsAnimating(false), 600);
+  // Typewriter effect to inject cadence
+  let currentIndex = 0;
+  const typeWriter = () => {
+    if (currentIndex >= processedText.length) {
+      setIsProcessing(false);
+      return;
+    }
+    setOutputText((prev) => prev + processedText[currentIndex]);
+    currentIndex++;
+    const delay = Math.random() < 0.1 ? 100 : 30;
+    setTimeout(typeWriter, delay);
+  };
+  typeWriter();
 };`,
     nextProject: {
       title: "GapLens",
@@ -493,7 +512,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                   >
                     <code>{project.codeSnippet}</code>
                   </pre>
-                  {project.screenRecording ? (
+                  {project.screenRecording && (
                     <div className="w-full aspect-video bg-gray-900 rounded overflow-hidden">
                       <video
                         autoPlay
@@ -506,10 +525,6 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                       >
                         <source src={project.screenRecording} type="video/mp4" />
                       </video>
-                    </div>
-                  ) : (
-                    <div className="w-full aspect-video bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-400">Screen Recording</span>
                     </div>
                   )}
                 </div>

@@ -31,10 +31,10 @@ const projects: Project[] = [
   },
   {
     id: "3",
-    title: "CTRL+Build",
+    title: "ctrl-build",
     tags: ["design", "development"],
     href: "/work/ctrl-build",
-    image: "/assets/images/ctrl-build-full-bleed.webp",
+    image: "/assets/images/ctrl-build.jpg",
   },
 ];
 
