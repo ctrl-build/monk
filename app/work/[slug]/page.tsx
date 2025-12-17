@@ -107,7 +107,8 @@ useEffect(() => {
   "ctrl-build": {
     title: "ctrl-build",
     tags: ["design", "development"],
-    fullBleedImage: "/assets/images/ctrl-build.jpg",
+    heroImage: "/assets/images/ctrl-build.webp",
+    fullBleedImage: "/assets/images/ctrl-build.webp",
     intention: "ctrl-build is an AI text refinement engine that transforms AI-generated content into natural, human-like writing. Artificial Intelligence gravitates toward the average—it smoothes out edges, flattens rhythm, and removes the friction that makes writing feel human. ctrl-build needed a digital presence that embodied their mission: to restore the cadence of human thought, not through deception, but through reconstruction.",
     discipline: "We approached this as an exercise in breaking the predictable patterns of probability. The challenge was creating a site that communicated ctrl-build's core philosophy—that the algorithm craves the median, but you shouldn't—while demonstrating the technical sophistication of their semantic restructuring engine. Every design decision was measured against their mission: Does this reflect precision? Does it demonstrate control? Does it communicate the restoration of biological thought patterns? The result is a digital presence that is both a tool and a statement—a demonstration of what it means to reconstruct rather than deceive.",
     disciplineQuote: "The algorithm craves the median. You shouldn't.",
@@ -156,7 +157,6 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
   const { slug } = use(params);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showThread, setShowThread] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
   const [isDesktop, setIsDesktop] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const project = projectData[slug] || projectData.gaplens;
@@ -199,7 +199,6 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
       if (heroRef.current && isDesktop) {
         const heroBottom = heroRef.current.offsetHeight;
         if (window.scrollY > heroBottom * 0.8) {
@@ -242,9 +241,6 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
             <div
               ref={heroRef}
               className="fixed inset-0 w-full h-screen z-10"
-              style={{
-                transform: `translateY(${scrollY * 0.5}px)`,
-              }}
             >
               <div className="relative w-full h-full aspect-video">
                 {project.heroVideo ? (
@@ -400,7 +396,6 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                       className="w-full h-full object-cover"
                       width={1920}
                       height={1080}
-                      loading="lazy"
                     />
                   </picture>
                 ) : (
@@ -553,7 +548,7 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                 >
                   <code>{project.codeSnippet}</code>
                 </pre>
-                {project.screenRecording ? (
+                {project.screenRecording && (
                   <div className="w-full aspect-video bg-gray-900 rounded overflow-hidden">
                     <video
                       autoPlay
@@ -566,10 +561,6 @@ export default function ProjectPage({ params }: { params: Promise<{ slug: string
                     >
                       <source src={project.screenRecording} type="video/mp4" />
                     </video>
-                  </div>
-                ) : (
-                  <div className="w-full aspect-video bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400">Screen Recording</span>
                   </div>
                 )}
               </div>

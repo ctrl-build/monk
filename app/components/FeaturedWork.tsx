@@ -34,7 +34,7 @@ const projects: Project[] = [
     title: "ctrl-build",
     tags: ["design", "development"],
     href: "/work/ctrl-build",
-    image: "/assets/images/ctrl-build.jpg",
+    image: "/assets/images/ctrl-build.webp",
   },
 ];
 
