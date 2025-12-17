@@ -251,7 +251,7 @@ export default function FeaturedWork() {
                   />
 
                   {/* Visual Content */}
-                  <div className="absolute inset-0 z-0">
+                  <div className="absolute inset-0 z-0 overflow-hidden">
                     {activeProjectData.video ? (
                       <video
                         src={activeProjectData.video}
@@ -260,6 +260,10 @@ export default function FeaturedWork() {
                         muted
                         playsInline
                         className="w-full h-full object-cover"
+                        style={{
+                          transform: 'scale(1.15)',
+                          objectPosition: 'center top',
+                        }}
                         width={1920}
                         height={1080}
                         preload="auto"
@@ -368,7 +372,7 @@ export default function FeaturedWork() {
                   </div>
 
                   {/* Image/Video */}
-                  <div className="w-full mb-6">
+                  <div className="w-full mb-6 overflow-hidden">
                     {project.video ? (
                       <video
                         src={project.video}
@@ -377,6 +381,10 @@ export default function FeaturedWork() {
                         muted
                         playsInline
                         className="w-full h-auto"
+                        style={{
+                          transform: 'scale(1.15)',
+                          objectPosition: 'center top',
+                        }}
                         width={1200}
                         height={900}
                         preload="auto"
