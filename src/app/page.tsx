@@ -196,8 +196,8 @@ export default function Home() {
                 <ul className="font-mono text-sm space-y-4 text-newsprint/80">
                   <li className="block">Creative Direction</li>
                   <li className="block">Brand Identity</li>
-                  <li className="block">Interface Design (UI/UX)</li>
-                  <li className="block">Art Direction</li>
+                  <li className="block">Interface Design</li>
+                  <li className="block">Visual Strategy</li>
                 </ul>
               </div>
 
@@ -206,10 +206,10 @@ export default function Home() {
                   Technology
                 </h3>
                 <ul className="font-mono text-sm space-y-4 text-newsprint/80">
-                  <li className="block">Next.js Development</li>
-                  <li className="block">WebGL / 3D Experiences</li>
+                  <li className="block">Software Engineering</li>
+                  <li className="block">Digital Archives</li>
+                  <li className="block">Full-Stack Development</li>
                   <li className="block">Motion & Interaction</li>
-                  <li className="block">Headless CMS Architecture</li>
                 </ul>
               </div>
 
