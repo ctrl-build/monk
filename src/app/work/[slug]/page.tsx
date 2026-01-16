@@ -9,8 +9,8 @@ const projects = [
         slug: "gaplens",
         id: "01",
         client: "GAPLENS",
-        title: "The Architecture of Sight",
-        category: "Visual Strategy",
+        title: "The Architecture of Silence",
+        category: "Fine Art Photography",
         year: "2025",
         url: "https://gaplens.com",
         mainImage: "/assets/images/project-1.webp",
@@ -19,16 +19,16 @@ const projects = [
             "/assets/images/project-1-2.webp",
             "/assets/images/project-1-3.webp"
         ],
-        services: ["Art Direction", "Web Development", "Brand Identity"],
-        context: "Gaplens required a digital presence that mirrored the precision of their optical engineering. We stripped away the marketing layers to reveal the raw structural integrity of their work.",
-        outcome: "A stark, grid-based interface that functions less like a portfolio and more like a calibration tool. Instant response. Absolute clarity."
+        services: ["Creative Direction", "Web Architecture", "Visual Identity", "Interaction Design", "Full-Stack Build"],
+        context: "GapLens is a fine art photography studio dedicated to capturing the tension between material structure and ethereal light. They required an interface that behaved less like a website and more like a physical gallery—a space where the silence of the photography could be felt as much as seen.",
+        outcome: "We engineered a stark, high-contrast digital archive that prioritizes negative space over traditional navigation. By utilizing a grid system built on architectural ratios, we created a platform where each frame commands absolute focus. The user experience is intentionally slowed, forcing a deeper engagement with the textures of concrete and the geometry of shadow. The result is a digital artifact that honors the solemn purity of the GapLens lens."
     },
     {
         slug: "naath-models",
         id: "02",
         client: "NAATH MODELS",
-        title: "Raw Beauty, Unpolished",
-        category: "Talent Management",
+        title: "The New Vanguard",
+        category: "Editorial Curation",
         year: "2026",
         url: "https://naath.pages.dev",
         mainImage: "/assets/images/project-2.webp",
@@ -37,16 +37,16 @@ const projects = [
             "/assets/images/project-2-2.webp",
             "/assets/images/project-2-3.webp"
         ],
-        services: ["UX Design", "Custom Archive", "Casting Database"],
-        context: "The fashion industry is obsessed with retouching. Naath represents the opposite. They needed a platform that honored the raw, unedited reality of their talent roster.",
-        outcome: "We built a digital archive that feels like a physical lookbook found in a darkroom. High contrast, heavy grain, and an experience that forces the user to slow down and look."
+        services: ["Brand Strategy", "Digital Archive", "Boutique Experience", "Talent Management", "Editorial Direction"],
+        context: "The fashion industry is often reduced to a catalogue of disposable statistics. NAATH MODELS was founded to reject this mass-recruitment model. They required a digital vanguard—a boutique platform that functions as a high-fashion curation, prioritizing the development of careers with precision and longevity over sheer volume.",
+        outcome: "We built a quiet, high-contrast archive that mirrors the restraint of a physical darkroom. By utilizing a minimalist architectural grid and unpolished visual textures, we created a space where talent isn't just displayed, but nurtured. The experience is designed to be felt as a private viewing room—an editorial statement that honors the raw, unedited reality of the 'New Vanguard'."
     },
     {
         slug: "ctrl-build",
         id: "03",
         client: "CTRL BUILD",
-        title: "Field Intelligence",
-        category: "Communication Utility",
+        title: "Linguistic Deconstruction",
+        category: "Adversarial Engine",
         year: "2025",
         url: "https://ctrl-build.com",
         mainImage: "/assets/images/project-3.webp",
@@ -55,16 +55,16 @@ const projects = [
             "/assets/images/project-3-2.webp",
             "/assets/images/project-3-3.webp"
         ],
-        services: ["Interface Design", "Automation", "Motion"],
-        context: "Construction management software is notoriously cluttered. Ctrl Build uses automated logic to clean up field notes. They needed an interface that felt industrial but organized.",
-        outcome: "A utility for the job site. Monospaced typography meets construction safety orange. The interface feels like a physical tool—reliable, loud, and functional."
+        services: ["Interface Design", "Linguistic Engineering", "Brand Identity", "Adversarial Strategy", "Full-Stack Output"],
+        context: "Artificial Intelligence is a statistical compression of the internet—a flattening of human expression into predictable patterns. CTRL BUILD is the rejection of that median. It functions as counter-surveillance, designed to deconstruct the algorithmic fingerprint of machine text and restore the irregular cadence of biological thought.",
+        outcome: "We developed a clinical, industrial interface that mirrors the efficiency of a terminal while delivering complex semantic restructuring. By injecting variance—the 'bursts' and pauses of natural writing—we engineered an engine that doesn't just bypass detection, but elevates machine output into something fundamentally human. The result is a high-utility artifact for the modern informational war."
     },
     {
         slug: "sort-lat",
         id: "04",
         client: "SORT.LAT",
-        title: "Contextual Identity",
-        category: "Adaptive Profile",
+        title: "Adaptive Momentum",
+        category: "Reactive Identity",
         year: "2026",
         url: "https://www.sort.lat",
         mainImage: "/assets/images/project-4.webp",
@@ -73,9 +73,9 @@ const projects = [
             "/assets/images/project-4-2.webp",
             "/assets/images/project-4-3.webp"
         ],
-        services: ["Product Design", "Performance", "Identity"],
-        context: "Standard link profiles are static. Sort.lat is reactive. It tracks momentum and pushes the most relevant content to the top automatically, adapting to who is watching.",
-        outcome: "A grid that eliminates layout shift. We built a system that pre-assembles the profile before it reaches the screen. No loading states. Just instant, stable content."
+        services: ["Interface Design", "Contextual Logic", "Performance Strategy", "Full-Stack Build"],
+        context: "Standard link profiles are biological fossils—stagnant, manual, and devoid of real-time context. SORT.LAT is a reactive engine designed to solve curation fatigue. It tracks link velocity and user momentum, automatically rearranging the profile in real-time to surface the most relevant content at the exact moment it's needed.",
+        outcome: "We engineered a zero-config platform that eliminates layout shift and curation overhead. The interface is optimized for speed, pre-assembling the profile server-side before it reaches the viewport. By removing the friction of manual management, we created a self-optimizing digital presence that adapts to the creator's momentum instantly. No loading states. no manual dragging. Just pure, reactive flow."
     }
 ];
 

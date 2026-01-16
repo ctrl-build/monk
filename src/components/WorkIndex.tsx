@@ -8,7 +8,7 @@ const archive = [
     {
         id: "01",
         client: "GAPLENS",
-        category: "Visual Strategy",
+        category: "Fine Art Photography",
         year: "2025",
         slug: "gaplens",
         image: "/assets/images/project-1.webp",
@@ -17,7 +17,7 @@ const archive = [
     {
         id: "02",
         client: "NAATH MODELS",
-        category: "Talent Management",
+        category: "Editorial Curation",
         year: "2026",
         slug: "naath-models",
         image: "/assets/images/project-2.webp",
@@ -26,7 +26,7 @@ const archive = [
     {
         id: "03",
         client: "CTRL BUILD",
-        category: "Linguistics Engine",
+        category: "Adversarial Engine",
         year: "2025",
         slug: "ctrl-build",
         image: "/assets/images/project-3.webp",
@@ -35,7 +35,7 @@ const archive = [
     {
         id: "04",
         client: "SORT.LAT",
-        category: "Adaptive Identity",
+        category: "Reactive Identity",
         year: "2026",
         slug: "sort-lat",
         image: "/assets/images/project-4.webp",

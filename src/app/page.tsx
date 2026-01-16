@@ -58,7 +58,7 @@ export default function Home() {
             Selected <br /> <span className="italic text-newsprint/50">Artifacts</span>
           </h2>
           <span className="hidden md:block font-mono text-xs text-newsprint/60 text-right">
-            INDEX: 001 — 003 <br />
+            INDEX: 001 — 004 <br />
             (SCROLL TO VIEW)
           </span>
         </div>
@@ -67,8 +67,8 @@ export default function Home() {
           <WorkItem
             id="01"
             client="GAPLENS"
-            category="Visual Strategy"
-            description="A digital lens for the modern void. Architecture of sight."
+            category="Fine Art Photography"
+            description="The architecture of silence. Capturing the tension between light and shadow."
             year="2025"
             imageSrc="/assets/images/project-1.webp"
             url="https://gaplens.com"
@@ -76,8 +76,8 @@ export default function Home() {
           <WorkItem
             id="02"
             client="NAATH MODELS"
-            category="Talent"
-            description="Defining the new face of the industry. Raw beauty, unpolished."
+            category="Editorial Curation"
+            description="The new vanguard of fashion. Career longevity through boutique curation."
             year="2026"
             imageSrc="/assets/images/project-2.webp"
             url="https://naath.pages.dev"
@@ -85,11 +85,20 @@ export default function Home() {
           <WorkItem
             id="03"
             client="CTRL BUILD"
-            category="Linguistics"
-            description="Neural text refinement. Stripping the noise to reveal the signal."
+            category="Adversarial Engine"
+            description="Neural deconstruction of algorithmic patterns. Restoring the human cadence."
             year="2025"
             imageSrc="/assets/images/project-3.webp"
             url="https://ctrl-build.com"
+          />
+          <WorkItem
+            id="04"
+            client="SORT.LAT"
+            category="Reactive Identity"
+            description="The link-in-bio that thinks for itself. Automated curation based on momentum."
+            year="2026"
+            imageSrc="/assets/images/project-4.webp"
+            url="https://www.sort.lat"
           />
         </div>
 
