@@ -1,13 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Keep the compiler disabled for stability on Edge
   reactCompiler: false,
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.resolve.alias['async_hooks'] = false;
-    }
-    return config;
-  },
 };
 
 export default nextConfig;
