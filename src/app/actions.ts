@@ -2,14 +2,22 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 interface ActionState {
     success: boolean;
     message: string;
 }
 
 export async function sendEmail(prevState: ActionState, formData: FormData): Promise<ActionState> {
+    const apiKey = process.env.RESEND_API_KEY;
+
+    if (!apiKey) {
+        console.error("Missing RESEND_API_KEY");
+        return { success: false, message: 'Server configuration error.' };
+    }
+
+    const resend = new Resend(apiKey);
+
+    // 2. Extract Data
     const name = formData.get('name') as string;
     const email = formData.get('email') as string;
     const budget = formData.get('budget') as string;
