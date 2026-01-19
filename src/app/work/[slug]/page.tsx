@@ -30,7 +30,7 @@ const projects = [
         title: "The New Vanguard",
         category: "Editorial Curation",
         year: "2026",
-        url: "https://naath.pages.dev",
+        url: "https://naathmodels.com",
         mainImage: "/assets/images/project-2.webp",
         detailImages: [
             "/assets/images/project-2-1.webp",

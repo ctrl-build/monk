@@ -80,7 +80,7 @@ export default function Home() {
             description="The new vanguard of fashion. Career longevity through boutique curation."
             year="2026"
             imageSrc="/assets/images/project-2.webp"
-            url="https://naath.pages.dev"
+            url="https://naathmodels.com"
           />
           <WorkItem
             id="03"
